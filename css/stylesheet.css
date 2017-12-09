@@ -1,0 +1,59 @@
+html, body {
+  height: 100%;
+}
+
+h1{
+	Font-Family: 'Raleway', Sans-Serif;
+	Font-Size: 44px;
+}
+
+p{
+	Font-Family: 'Open Sans', Sans-Serif;
+	Font-Size: 15px;
+}
+
+figcaption {
+	Font-Family: 'Open Sans', Sans-Serif;
+	Font-Size: 15px;
+}
+
+footer {
+	Font-Family: 'Open Sans', Sans-Serif;
+	Font-Size: 8px;
+}
+
+.jumbotron {
+	background-color: white;
+}
+
+.nav-link {
+	Font-Family: 'Open Sans', Sans-Serif;
+	Font-Size: 15px;
+}
+
+.font_open-sans {
+	Font-Family: 'Open Sans', Sans-Serif;
+	Font-Size: 15px;
+}
+
+#font_open-sans-small {
+	Font-Family: 'Open Sans', Sans-Serif;
+	Font-Size: 10px;
+}
+
+.footer {
+  position: relative;
+  margin-top: -150px; /* negative value of footer height */
+  height: 150px;
+  clear:both;
+  padding-top:20px;
+}
+
+#wrap {
+  min-height: 100%;
+}
+
+#main {
+  overflow:auto;
+  padding-bottom:150px; /* this needs to be bigger than footer height*/
+}
