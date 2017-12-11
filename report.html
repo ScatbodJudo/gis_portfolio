@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Todd Jacobus | Geospatial Science and Art</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans|Raleway:300,400" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="css/stylesheet.css">
+</head>
+
+<style type="text/css">
+	
+</style>
+
+<body>
+
+<!-- navbar/header -->
+<div class="container">
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+	  <a class="navbar-brand" href="#"></a>
+	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+	    <span class="navbar-toggler-icon"></span>
+	  </button>
+
+	  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+	    <ul class="navbar-nav mr-auto">
+	      <li class="nav-item">
+	        <a class="nav-link" href="mapping.html">Science and Mapping <span class="sr-only">(current)</span></a>
+	      </li>
+	      <li class="nav-item">
+	        <a class="nav-link" href="photos.html">Photography </a>
+	      </li>
+	      <li class="nav-item">
+	      	<a class="nav-link" href="about.html">About Todd </a>
+	      </li>
+<!-- 	      <li class="nav-item dropdown">
+	        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	          Extras
+	        </a>
+	        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+	          <a class="dropdown-item" href="#"></a>
+	          <a class="dropdown-item" href="#">Contact</a>
+	          <div class="dropdown-divider"></div>
+	          <a class="dropdown-item" href="#">Give Money</a> -->
+	        </div>
+	      </li>
+	    </ul>
+	  </div>
+	</nav>
+</div>
+
+<!-- jumbotron -->
+
+<div class="container">
+	<div class="jumbotron jumbotron-fluid">
+	  <div class="container">
+	    <h1 class="display-3">Analyzing and Mapping Emotional Entropy in the U.S.</h1>
+	    <p></p>
+	  </div>
+	</div>
+</div>
+
+<div id="wrap">
+	<div id="main" class="container clear-top">
+		<div class="row">
+			<div class="col-lg-2 boxy"></div>
+			<div class="col-lg-8 boxy">
+				<article class="text-justify">
+					<h2>Introduction</h2>
+					<p>
+					Arguably, the cultural landscape of the United States has never been so distinctly quilted as it is now.  It seems as though ideologically people are drastically split on mutually exclusive sides of a perceived spectrum.  Therefore, it has never been more prudent to understand these divides while a start would be to geographically map them.</p>
+					<p>Mapping such a broad, fuzzy idea such as “culture” is practically impossible unless aspects of it are defined and quantifiable.  In the age of digital, social interaction, large amounts of measurable data are becoming more and more available and easily accessible, while methods of quantifying social data are becoming more refined.</p>
+					<p>The scope of this project is to begin to quantify variations in cultural topography through studying evidence of shared emotional expression as estimated from social media text, specifically, microblog text from Twitter.  Geographic variation has been shown to exist in twitter text (Eisenstein et al., 2010), particularly in slang and non-standard English.  Using the same dataset, variation (or clustering) in emotional expression should also exist.  I hypothesize that there is statistically significant clustering and that clustering is meaningful and based on the cultural environment of the authors.</p>
+
+					<h2>Methods</h2>
+					<p>The Twitter corpus used for this analysis came from the Eisenstein et al., 2010 study.  This data set consisted of over 350,000 tweets from about 9,500 authors.  These tweets were collected over the first week of March, 2010, using the public Twitter API “garden hose” data stream, which represents about 15% of the total public message volume.  Aggressive filtering was applied in order to maximize the authenticity of the text.  Tweets were only collected from users that had less than 1000 followers and who also followed less than 1000 others.  Kwak et al. (2010) have shown that users outside of this range often show dramatic shifts in behavior and are likely to be celebrities with professional publicists or news media, etc..  A bounding box was placed around the continental US to limit tweets geographically, while messages containing URLs were removed to help eliminate messages containing weather conditions or advertising.</p>
+					<p>The Natural Language Toolkit, an open source natural language processing module for Python (nltk.org), was used to analyze text for emotional content, specifically, to perform a sentiment analysis.  The corpus was also tokenized using NLTK, which isolates words and also punctuation as well as emoticons.  Sentiment scores were generated using the VADER sentiment algorithm (Hutto et al., 2014) which is specifically designed to handle social media text, taking into account special uses of typography such as words in all-caps as well as word negation and emoticons.  Only the composite score was used in this analysis.</p>
+					<p>In order to estimate the uniqueness of emotional expression, Claude Shannon’s Entropy (H) of information calculation was adapted to weight each composite sentiment score by its entropy score (Figure 1, Shannon et al., 1949).  This method was inspired from Quoidbach et al., and their proposition that the Shannon-Weiner biodiversity index can be adapted to describe an emotional “ecosystem.”  They compared unique expressions of emotion to species in a population of organisms.  Their study, despite receiving criticism, is based on Shannon’s Entropy principle which is intended to describe unpredictability, or uniqueness, of symbols in a set of possible symbols.  It follows that this statistic could be used to describe the uniqueness of tokens in a tweet and the uniqueness of the emotion that it expresses.</p>
+					<figure>
+						<img src="photos/shanon_H.jpg" class="img-thumbnail">
+						<figcaption>Figure 1: Equation describing Shannon's Entropy "H".</figcaption>
+					</figure>
+					
+					<p>To calculate H for the Eisenstein Twitter corpus, I compared the number of occurrences of each unique token to the total number of tokens in the data set.  H, then, was calculated for each tweet using these proportions and Shannon’s Entropy formula.  I then multiplied H by the composite sentiment to estimate Emotional Entropy (EmoH).</p>
+					<p>To determine clustering, I employed the Getis-Ord Gi* cluster analysis (Figure 2).  As a supplement to the Getis-Ord Gi*, I also performed an inverse distance weighting interpolation in order to illustrate clustering.</p>
+					<figure>
+						<a href="photos/getis_ord_model.png" target="_blank"><img src="photos/getis_ord_model.png" class="img-thumbnail"></a>
+						<figcaption>Figure 2: Model used to calculate Getis-Ord Gi* statistics.</figcaption>
+					</figure>
+
+					<h2>Results</h2>
+					<p>When reviewing the data, it became clear that the vast majority of tweets are authored by individuals in or near major metropolitan areas, New York, Los Angeles, San Fransisco, and Atlanta being magnetic centers for tweet density (Figure 3).  Most tweet diversity is located at New York City.</p>
+					<figure>
+						<a href="photos/all_tweets.png" target="_blank"> <img src="photos/all_tweets.png" class="img-thumbnail"> </a>
+						<figcaption>Figure 3: Point locations of every tweet in the data set.</figcaption>
+					</figure>
+					<p>The Getis-Ord Gi* cluster analysis produced 7,194 clusters with P values less than 0.01, ranging from high EmoH to low EmoH (Figure 4).  These clusters followed the general distribution of tweet point locations.  Only EmoH values more than one standard deviation were used, since the vast majority of tweets scored near 0 for EmoH. </p>
+					
+					<figure>
+						<a href="photos/gi_with_pop_1.png" target="_blank"><img src="photos/gi_with_pop_1.png" class="img-thumbnail"></a>
+						<figcaption>Figure 4: Getis-Ord Gi* analysis of EmoH values more than 1 standard devation from the mean.</figcaption>
+					</figure>
+
+					<h2>Conclusion</h2>
+					<p>My original hypothesis was that there was clustering of emotional content as expressed in twitter text.  My data supports this hypothesis, showing many instances of statistically significant clustering (Figure 4).  Of the 7,194 clusters that received a P value of less than 0.01, probability theory states that about 100 of these are clustered due to random chance.  Since there many magnitudes more clusters than this, I am confident in supporting my hypothesis.  The number of tweets in a given area seemed, qualitatively, to corellate with population density (Figure 5).  Using Inverse Distance Weighting interpolation, it becomes clear that variability in EmoH increases closer to known areas of population density (Figure 6).  Explaining this clustering is beyond the scope of what I set out to do, however, this analysis raised interesting questions that, hopefully, could be answered with more data or technical knowledge.</p>
+					<figure>
+						<a href="photos/gi_with_pop_2.png" target="_blank"><img src="photos/gi_with_pop_2.png" class="img-thumbnail"></a>
+						<figcaption>Figure 5: The apparent corellation of tweets with population density for the northeast United States.</figcaption>
+					</figure>
+					<figure>
+						<a href="photos/IDW_emoH.png" target="_blank"><img src="photos/IDW_emoH.png" class="img-thumbnail"></a>
+						<figcaption>Figure 6: Inverse Distance Weighting regression of nation-wide EmoH values.</figcaption>
+					</figure>
+					<p>For example, there is a cluster of positive tweets (Z = 4.68, P < 0.01 ) near Tulsa, OK, while there is a cluster of negative tweets about 100 miles away in Oklahoma City (Z = -4.32, P < 0.01) (Figure 7).  I do not have enough information to make any inferences as to what is causing this numerical difference.  If, indeed, this is a cultural difference between the people of Tulsa and those of Oklahoma City there are an uncountable variety of factors that could have an effect and beginning to quantify them would be a daunting task.  The simplest approach would be to analyze and compare the meanings of noun phrases in the text from these two areas.  This way, one could begin to isolate the grammatical subjects and uncover the most common ones contributing to intense negative or positive emotion.  This would identify any major events, such as sporting events, that may have provoked such a divergent sentiment.</p>
+					<figure>
+						<a href="photos/gi_with_pop_3.png" target="_blank"><img src="photos/gi_with_pop_3.png" class="img-thumbnail"></a>
+						<figcaption>Figure 7: Dichotomous clusters of EmoH scores in Oklahoma.</figcaption>
+					</figure>
+					<p>This analysis has illustrated the massive quantity of data centered around New York City.  There also is significant clustering occurring in many areas local to the city (Figure 8).  New, more focused analyses could be done and compared to documented cultural and socioeconomic differences between neighborhoods and demographics.</p>
+					<figure>
+						<a href="photos/gi_with_pop_4.png" target="_blank"><img src="photos/gi_with_pop_4.png" class="img-thumbnail"></a>
+						<figcaption>Figure 8: EmoH clustering discovered local to New York City.</figcaption>
+					</figure>
+					<p>The most valuable aspect of Twitter data, however, is its combination of both geographic and temporal information.  As people tweet, they leave a human cultural time capsule, an abstraction of their own psychology.  With more sophisticated techniques, emotion and human culture could be mapped over both space and time, in a way that might allow us to visualize the ebb and flow of the human condition.</p>
+
+					<h2>References</h2>
+					<ul>
+						<li>Brown, Nicholas JL, and James C. Coyne. "Emodiversity: Robust predictor of outcomes or statistical artifact?." Journal of Experimental Psychology: General 146.9 (2017): 1372.</li>
+						<li>Eisenstein, Jacob, et al. "A latent variable model for geographic lexical variation." Proceedings of the 2010 Conference on Empirical Methods in Natural Language Processing. Association for Computational Linguistics, 2010.</li>
+						<li>Hutto, C.J. and Gilbert, E.E. (2014). VADER: A Parsimonious Rule-based Model for Sentiment Analysis of Social Media Text. Eighth International Conference on Weblogs and Social Media (ICWSM-14). Ann Arbor, MI, June 2014.</li>
+						<li>Kwak et al. 2010  --  H. Kwak, C. Lee, H. Park, and S. Moon. 2010. What 
+						is Twitter, a social network or a news media? In Proceedings 
+						of WWW. </li>
+						<li>Shannon, Claude E., and Warren Weaver. "The mathematical theory of communication. Urbana, Ill." Univ. Illinois Press 1 (1949): 17.</li>
+						<li>Quoidbach, Jordi, et al. "Emodiversity and the emotional ecosystem." Journal of experimental psychology: General 143.6 (2014): 2057.</li>
+
+					</ul>
+
+				</article>
+		</div>
+			<div class="col-lg-2 boxy"></div>
+		</div>
+	</div>
+</div>
+	
+<div class="container">
+	<footer class="footer">
+  	<p id="font_open-sans-small">A handmade website by Todd Jacobus</p>
+	</footer>
+</div>
+
+<!-- jquery/javascript -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+</body>
+</html>
