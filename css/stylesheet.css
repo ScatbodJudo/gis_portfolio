@@ -76,3 +76,9 @@ footer {
   overflow:auto;
   padding-bottom:150px; /* this needs to be bigger than footer height*/
 }
+
+/*leaflet map css*/
+
+#mapdid {
+	height: 180px;
+}
