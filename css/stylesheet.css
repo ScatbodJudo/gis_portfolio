@@ -64,6 +64,10 @@ footer {
   padding-top:20px;
 }
 
+.point-feature {
+	
+}
+
 #image_padding {
 	padding-bottom: 20px;
 }
@@ -81,4 +85,12 @@ footer {
 
 #mapdid {
 	height: 180px;
+}
+
+#map { 
+	/*width: 960px;*/
+	width: 100%;
+	height: 500px; 
+	border: 3px solid white;
+
 }

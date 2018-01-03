@@ -6,9 +6,18 @@
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans|Raleway:300,400" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="css/stylesheet.css">
 	<!-- leaflet maps styleshets -->
-	 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"
-   integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ=="
-   crossorigin=""/>
+	 <!-- <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"
+	 integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ=="
+	 crossorigin=""/> -->
+	 <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+
+   <!-- leaflet scripts -->
+ 	<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+ 	<!-- leaflet AJAX plugin -->
+ 	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-ajax/2.1.0/leaflet.ajax.js"></script>
+
+ 	<!-- jquery uncompressed cdn -->
+ 	<script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
 </head>
 
 <style type="text/css">
@@ -83,10 +92,39 @@
 			</div>
 
 		</div>
+
+<!-- leaflet map -->
+
+		<div class="container">
+			<figure class="polaroid">
+				<div id="map"></div>
+					<script>
+
+				    var map = L.map('map',{
+				    center: [43.64701, -79.39425],
+				    zoom: 4
+				    });
+
+				    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+				    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+				    }).addTo(map);
+
+				    // var geoJsonLayer = L.GeoGSON().addTo(map);
+				    // geoJsonLayer.addData(L.GeoJSON.AJAX("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson"));
+				    var geojsonLayer = new L.GeoJSON.AJAX("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson");
+				    geojsonLayer.addTo(map);
+				    L.geoJSON(geojsonLayer).addTo(map);
+
+				</script>	
+				<figcaption id="polaroid-tag">Earthquakes in the past 24 Hours, live from the USGS.</figcaption>				
+			</figure>
+
+		</div>
+
+
+<!-- end of container -->
 	</div>
 </div>
-<!-- access grid and display photos -->
-	
 
 <div class="container">
 	<footer class="footer">
