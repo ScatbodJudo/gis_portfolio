@@ -1,8 +1,39 @@
-var mymap = L.map('mapid').setView([51.505, -0.09], 13);
+var pointStyle = {
+	"color":"#ff7800",
+	"weight":5
 
-L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
-    maxZoom: 18,
-    id: 'mapbox.streets',
-    accessToken: 'pk.eyJ1IjoicnRqYWNvYnVzIiwiYSI6ImNqYjdlajRlOTM3dWkzM24ydjZxNjY2b2EifQ.yckQKn3r2OYzPw-m4SMKRQ'
-}).addTo(mymap);
+}
+
+var map = L.map('map',{
+center: [43.64701, -79.39425],
+zoom: 4
+});
+
+// basemap tile layer
+
+L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+}).addTo(map);
+
+// earthquake geoJson layer
+
+var geojsonLayer = new L.GeoJSON.AJAX("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson");
+geojsonLayer.addTo(map);
+L.geoJSON(geojsonLayer,{
+	 style: pointStyle
+}).addTo(map);
+
+// earthquake properties are nested in dictionaries
+// console.log(geojsonLayer._layers[25]["feature"]["properties"]["mag"])
+
+for (var i = geojsonLayer._layers.length; i >= 0; i--) {
+	console.log(geojsonLayer._layer[i]["feature"]["properties"]["mag"])
+}
+
+var nums = [1,2,3,4,5,6,7,8,9];
+
+
+	for (var i = nums.length; i >= 0; i--) {
+	console.log(nums[i])
+	}
+

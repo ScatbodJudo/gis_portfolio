@@ -98,24 +98,7 @@
 		<div class="container">
 			<figure class="polaroid">
 				<div id="map"></div>
-					<script>
-
-				    var map = L.map('map',{
-				    center: [43.64701, -79.39425],
-				    zoom: 4
-				    });
-
-				    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-				    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-				    }).addTo(map);
-
-				    // var geoJsonLayer = L.GeoGSON().addTo(map);
-				    // geoJsonLayer.addData(L.GeoJSON.AJAX("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson"));
-				    var geojsonLayer = new L.GeoJSON.AJAX("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson");
-				    geojsonLayer.addTo(map);
-				    L.geoJSON(geojsonLayer).addTo(map);
-
-				</script>	
+					<script src="scripts/leaflets.js"></script>	
 				<figcaption id="polaroid-tag">Earthquakes in the past 24 Hours, live from the USGS.</figcaption>				
 			</figure>
 
